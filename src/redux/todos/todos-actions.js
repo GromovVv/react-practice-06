@@ -1,49 +1,49 @@
 /* eslint-disable import/no-anonymous-default-export */
-import shortid from 'shortid';
+// eslint-disable-next-line no-unused-vars
+// import shortid from 'shortid';
 
 import { createAction } from '@reduxjs/toolkit';
 
-// eslint-disable-next-line no-unused-vars
-// import typesTodo from './todos-types';
+export const fetchTodoRequest = createAction('todos/fetchTodoRequest');
+export const fetchTodoSuccess = createAction('todos/fetchTodoSuccess');
+export const fetchTodoError = createAction('todos/fetchTodoError');
 
-// const addTodo = createAction(typesTodo.ADD, text => ({
+export const addTodoRequest = createAction('todos/addTodoRequest');
+export const addTodoSuccess = createAction('todos/addTodoSuccess');
+export const addTodoError = createAction('todos/addTodoError');
 
-const addTodo = createAction('todos/add', text => ({
-    payload: {
-      id: shortid.generate(),
-      text,
-      completed: false,
-    },
-  }));
-
-  
-  const deleteTodo = createAction('todos/delete');
-  
-  const changeFilter = createAction('todos/changeFilter');
-
-  const toggleCompleted = createAction('todos/toggleCompleted');
+export const deleteTodoRequest = createAction('todos/deleteTodoRequest');
+export const deleteTodoSuccess = createAction('todos/deleteTodoSuccess');
+export const deleteTodoError = createAction('todos/deleteTodoError');
 
 
-  // const deleteTodo = createAction(typesTodo.DELETE);
-  // const changeFilter = createAction(typesTodo.CHANGE_FILTER);
+export const toggleCompletedTodoRequest = createAction('todos/toggleCompletedTodoRequest');
+export const toggleCompletedTodoSuccess = createAction('todos/toggleCompletedTodoSuccess');
+export const toggleCompletedTodoError = createAction('todos/toggleCompletedTodoError');
 
-// const addTodo = (text) => ({
-//     type: typesTodo.ADD,
+export const changeFilter = createAction('todos/changeFilter');
+
+
+// export default {
+//   addTodoRequest,
+//   addTodoSuccess,
+//   addTodoError,
+//   deleteTodo,
+//   changeFilter,
+//   toggleCompleted,
+// };
+
+// const asyncActionCreator = args => dispatch => {
+// //http...
+// // fetch().then(x => dispatch(action(x))).catch(y => dispatch(action(y)))
+// }
+
+// dispatch(asyncActionCreator(10));
+
+// const addTodo = createAction('todos/add', text => ({
 //     payload: {
-//         id: shortid.generate(),
-//         text,
-//         completed: false,
-//     }
-// });
-
-// const deleteTodo = todoId => ({
-//     type: typesTodo.DELETE,
-//     payload: todoId
-// })
-
-// const changeFilter = value => ({
-//     type: typesTodo.CHANGE_FILTER,
-//     payload: value,
-// })
-
-export default { addTodo, deleteTodo, changeFilter, toggleCompleted };
+//       id: shortid.generate(),
+//       text,
+//       completed: false,
+//     },
+//   }));

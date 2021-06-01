@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Container from '../Components/Container';
 import TodoList from '../Components/TodoList';
@@ -8,8 +9,10 @@ import Stats from '../Components/Stats';
 import Modal from '../Components/Modal';
 import IconButton from '../Components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
+import todosOperations from '../redux/todos/todos-operations';
 // eslint-disable-next-line no-unused-vars
-import todosApi from '../services/todos-api';
+
+// import todosApi from '../services/todos-api';
 
 const barStyles = {
   display: 'flex',
@@ -19,82 +22,14 @@ const barStyles = {
 
 class TodosView extends Component {
   state = {
-    // todos: [],
-    // filter: '',
     showModal: false,
   };
 
-  // componentDidMount() {
-  //   todosApi
-  //     .fetchTodos()
-  //     .then(todos => this.setState({ todos }))
-  //     .catch(error => console.log(error));
-  // }
+  componentDidMount() {
+    this.props.fetchTodos();
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const nextTodos = this.state.todos;
-  //   const prevTodos = prevState.todos;
+  }
 
-  //   if (nextTodos !== prevTodos) {
-  //     localStorage.setItem('todos', JSON.stringify(nextTodos));
-  //   }
-  // }
-
-  // addTodo = text => {
-  //   const todoData = {
-  //     text,
-  //     completed: false,
-  //   };
-
-  //   todosApi.addTodo(todoData).then(todo => {
-  //     this.setState(({ todos }) => ({ todos: [...todos, todo] }));
-  //     this.toggleModal();
-  //   });
-  // };
-
-  // deleteTodo = todoId => {
-  //   todosApi.deleteTodo(todoId).then(() => {
-  //     this.setState(({ todos }) => ({
-  //       todos: todos.filter(({ id }) => id !== todoId),
-  //     }));
-  //   });
-  // };
-
-  // toggleCompleted = todoId => {
-  //   const todo = this.state.todos.find(({ id }) => id === todoId);
-  //   const { completed } = todo;
-  //   const update = { completed: !completed };
-
-  //   todosApi.updateTodo(todoId, update).then(updatedTodo => {
-  //     this.setState(({ todos }) => ({
-  //       todos: todos.map(todo =>
-  //         todo.id === updatedTodo.id ? updatedTodo : todo,
-  //       ),
-  //     }));
-  //   });
-  // };
-
-  // changeFilter = e => {
-  //   this.setState({ filter: e.currentTarget.value });
-  // };
-
-  // getVisibleTodos = () => {
-  //   const { filter, todos } = this.state;
-  //   const normalizedFilter = filter.toLowerCase();
-
-  //   return todos.filter(({ text }) =>
-  //     text.toLowerCase().includes(normalizedFilter),
-  //   );
-  // };
-
-  // calculateCompletedTodos = () => {
-  //   const { todos } = this.state;
-
-  //   return todos.reduce(
-  //     (total, todo) => (todo.completed ? total + 1 : total),
-  //     0,
-  //   );
-  // };
 
   toggleModal = () => {
     this.setState(({ showModal }) => ({
@@ -104,9 +39,6 @@ class TodosView extends Component {
 
   render() {
     const { showModal } = this.state;
-    // const totalTodoCount = todos.length;
-    // const completedTodoCount = this.calculateCompletedTodos();
-    // const visibleTodos = this.getVisibleTodos();
 
     return (
       <Container>
@@ -116,18 +48,27 @@ class TodosView extends Component {
           <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
             <AddIcon width="40" height="40" fill="#fff" />
           </IconButton>
+          {this.props.isLoadingTodos && <h1>Loading...</h1>}
         </div>
 
         <TodoList />
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <TodoEditor onSave={this.toggleModal}/>
+            <TodoEditor onSave={this.toggleModal} />
           </Modal>
         )}
       </Container>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  isLoadingTodos: state.todos.loading,
+})
 
-export default TodosView;
+
+const mapDispatchToProps = dispatch => ({
+  fetchTodos: () => dispatch(todosOperations.fetchTodo())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosView);

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux'
 
-import todosActions from '../../redux/todos/todos-actions'
+import  todosOperations from '../../redux/todos/todos-operations'
 import Todo from '../Todo';
 import './TodoList.scss';
 
@@ -18,7 +18,7 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
         <Todo
           text={text}
           completed={completed}
-          onToggleCompleted={() => onToggleCompleted(id)}
+          onToggleCompleted={() => onToggleCompleted({ id, completed: !completed})}
           onDelete={() => onDeleteTodo(id)}
         />
       </li>
@@ -32,8 +32,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onDeleteTodo: id => dispatch(todosActions.deleteTodo(id)),
-  onToggleCompleted: id => dispatch(todosActions.toggleCompleted(id)) ,
+  onDeleteTodo: id => dispatch(todosOperations.deleteTodo(id)),
+  onToggleCompleted: id => dispatch(todosOperations.toggleCompleted(id)) ,
 })
 
 
