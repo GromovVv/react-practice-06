@@ -3,10 +3,10 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:4040';
 
-const fetchTodos = () => {
-  return axios.get('/todos').then(response => response.data);
-};
+// const fetchTodos = () => {
+//   return axios.get('/todos').then(response => response.data);
+// };
 
 
 
-export default { fetchTodos, };
+// export default { fetchTodos, };
