@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import todosOperations from '../../redux/todos/todos-operations';
 import './TodoEditor.scss';
 
@@ -16,14 +15,14 @@ class TodoEditor extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.message.trim() !== '') {
+    if (this.state.message !== '') {
       this.props.onSubmit(this.state.message);
       this.props.onSave();
       this.setState({ message: '' });
       return;
     }
-    alert('Dont play with me biyatch!')
 
+    alert('Заполни текст заметки.');
   };
 
   render() {

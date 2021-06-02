@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import * as todosActions from '../../redux/todos/todos-actions';
 import './TodoFilter.scss';
+import { connect } from 'react-redux';
+import * as todosActions from '../../redux/todos/todos-actions';
 
 const TodoFilter = ({ value, onChange }) => (
   <div className="TodoFilter">
@@ -16,30 +15,12 @@ const TodoFilter = ({ value, onChange }) => (
   </div>
 );
 
-// const mapStateToProps = (state) => {
-//   const { filter, items } = state.todos;
-
-//   const visibleTodos = getVisibleTodos( items, filter )
-//   return {
-//     todos: visibleTodos,
-//   }
-// }
-const getVisibleTodos = (allTodos, filter) => {
-  const normalizedFilter = filter.toLowerCase();
-
-  return allTodos.filter(({ text }) =>
-    text.toLowerCase().includes(normalizedFilter),
-  );
-};
-
-// const mapStateToProps = state => ({
-const mapStateToProps = ({ todos: {items, filter}}) => ({
-  todos: getVisibleTodos(items, filter)
-  // todos: getVisibleTodos(state.todos.items, state.todos.filter)
- });
+const mapStateToProps = state => ({
+  value: state.todos.filter,
+});
 
 const mapDispatchToProps = dispatch => ({
-  onChange: event => dispatch(todosActions.changeFilter(event.target.value)),
+  onChange: e => dispatch(todosActions.changeFilter(e.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoFilter);

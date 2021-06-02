@@ -1,32 +1,21 @@
+import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
+import TodosView from './views/TodosView';
 
-import Counter from './Components/Counter';
-import TodosView from './Views/TodosView';
+const App = () => (
+  <>
+    <ul>
+      <li>
+        <Link to="/todos">Заметки</Link>
+      </li>
+    </ul>
 
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <ul>
-        <li>
-          <Link to="/counter">Счётчик</Link>
-        </li>
-        <li>
-          <Link to="/todos">Заметки</Link>
-        </li>
-      </ul>
-      <Switch>
-        <Route path="/counter">
-          <Counter />
-        </Route>
-
-        <Route path="/todos">
-          <TodosView />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
+    <Switch>
+      <Route path="/todos">
+        <TodosView />
+      </Route>
+    </Switch>
+  </>
+);
 
 export default App;
