@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Todo from '../Todo';
 import './TodoList.scss';
 
-const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
+const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (console.log('Todolist re-render')) || (
   <ul className="TodoList">
     {todos.map(({ id, text, completed }) => (
       <li
